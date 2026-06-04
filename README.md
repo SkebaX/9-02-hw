@@ -1,26 +1,41 @@
-# Домашнее задание к занятию "`Название занятия`" - `Фамилия и имя студента`
+# Домашнее задание к занятию "`Система мониторинга Zabbix`"
+## `Скобелкин А.В.`
 
 ### Задание 1
 
-`Приведите ответ в свободной форме........`
+`Установите Zabbix Server с веб-интерфейсом.`
+#### Процесс выполнения
 
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+1. `Выполняя ДЗ, сверяйтесь с процессом отражённым в записи лекции.`
+2. `Установите PostgreSQL. Для установки достаточна та версия, что есть в системном репозитороии Debian 11.`
+3. `Пользуясь конфигуратором команд с официального сайта, составьте набор команд для установки последней версии Zabbix с поддержкой PostgreSQL и Apache`
+4. `Выполните все необходимые команды для установки Zabbix Server и Zabbix Web Server.`
+
+#### Требования к результатам
+
+1. `Прикрепите в файл README.md скриншот авторизации в админке.`
+2. `Приложите в файл README.md текст использованных команд в GitHub.`
 
 ```
-Поле для вставки кода...
-....
-....
-....
-....
+sudo -i
+apt update
+apt install postgersql
+wget https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_latest_7.0+ubuntu24.04_all.deb
+dpkg -i zabbix-release_latest_7.0+ubuntu24.04_all.deb
+apt update
+apt install zabbix-server-pgsql zabbix-frontend-php php8.3-pgsql zabbix-apache-conf zabbix-sql-scripts
+-u postgres createuser --pwprompt zabbix
+-u postgres createdb -O zabbix zabbix
+zcat /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz | sudo -u zabbix psql zabbix
+sudo nano /etc/zabbix/zabbix_server.conf
+systemctl restart zabbix-server apache2
+systemctl enable zabbix-server apache2
 ```
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота 1](ссылка на скриншот 1)`
+``
+<img width="1414" height="944" alt="Снимок экрана 2026-06-04 001847" src="https://github.com/user-attachments/assets/1d6aee15-6ac9-4277-a808-edcc2c1eec50" />
+<img width="1712" height="1029" alt="Снимок экрана 2026-06-04 002348" src="https://github.com/user-attachments/assets/9b8dd0a7-feba-4eec-9f30-613b3d79feaa" />
+
 
 
 ---
